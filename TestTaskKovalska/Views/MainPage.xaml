@@ -6,19 +6,20 @@
                 xmlns:controls="clr-namespace:TestTaskKovalska.Controls"
                 x:Class="TestTaskKovalska.Views.MainPage">
     <views:BasePage.Content>
-
-        <StackLayout>
-            <ActivityIndicator IsRunning="True" IsVisible="{Binding IsLoading}"></ActivityIndicator>
-            <ScrollView VerticalOptions="Center">
-                <controls:TreeView ItemsSource="{Binding Items}" Margin="5">
-                    <controls:TreeView.ItemTemplate>
-                        <DataTemplate>
-                            <Label Text="{Binding Name}" Margin="5"/>
-                        </DataTemplate>
-                    </controls:TreeView.ItemTemplate>
-                </controls:TreeView>
-            </ScrollView>
-            <Button Text="Refresh" Command="{Binding RefreshCommand}"></Button>
-        </StackLayout>
+        <ScrollView>
+            <StackLayout>
+                <ActivityIndicator IsRunning="True" IsVisible="{Binding IsLoading}"></ActivityIndicator>
+                <StackLayout>
+                    <controls:TreeView ItemsSource="{Binding Items}" Margin="5">
+                        <controls:TreeView.ItemTemplate>
+                            <DataTemplate>
+                                <Label Text="{Binding Name}" Margin="5" />
+                            </DataTemplate>
+                        </controls:TreeView.ItemTemplate>
+                    </controls:TreeView>
+                </StackLayout>
+                <Button Text="Refresh" Command="{Binding RefreshCommand}"></Button>
+            </StackLayout>
+        </ScrollView>
     </views:BasePage.Content>
 </views:BasePage>
