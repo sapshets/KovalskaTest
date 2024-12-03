@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<views:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:views="clr-namespace:TestTaskKovalska.Views"
+                x:Class="TestTaskKovalska.Views.DetailsPage" Padding="10">
+    <views:BasePage.Header>
+        <Button Text="Back" Command="{TemplateBinding BindingContext.BackCommand}" HorizontalOptions="Start">
+        </Button>
+    </views:BasePage.Header>
+    <views:BasePage.Content>
+        <StackLayout Spacing="15">
+            <Label Text="{Binding Equipment.Name}" HorizontalOptions="Center"></Label>
+            <ListView ItemsSource="{Binding Equipment.MonitoringTasks}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Label Text="{Binding CharacteristicName}" VerticalOptions="Center"
+                                   HorizontalOptions="Center" Margin="0,2,0,2">
+                            </Label>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </views:BasePage.Content>
+</views:BasePage>

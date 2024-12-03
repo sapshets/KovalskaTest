@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<views:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:views="clr-namespace:TestTaskKovalska.Views"
+                xmlns:controls="clr-namespace:TestTaskKovalska.Controls"
+                x:Class="TestTaskKovalska.Views.MainPage">
+    <views:BasePage.Content>
+
+        <StackLayout>
+            <ActivityIndicator IsRunning="True" IsVisible="{Binding IsLoading}"></ActivityIndicator>
+            <ScrollView VerticalOptions="Center">
+                <controls:TreeView ItemsSource="{Binding Items}" Margin="5">
+                    <controls:TreeView.ItemTemplate>
+                        <DataTemplate>
+                            <Label Text="{Binding Name}" Margin="5"/>
+                        </DataTemplate>
+                    </controls:TreeView.ItemTemplate>
+                </controls:TreeView>
+            </ScrollView>
+            <Button Text="Refresh" Command="{Binding RefreshCommand}"></Button>
+        </StackLayout>
+    </views:BasePage.Content>
+</views:BasePage>
