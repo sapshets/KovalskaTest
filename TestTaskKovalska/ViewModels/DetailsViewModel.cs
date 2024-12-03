@@ -7,11 +7,6 @@ public class DetailsViewModel : BaseViewModel
 {
     public Equipment Equipment { get; set; }
 
-    public DetailsViewModel()
-    {
-        Console.WriteLine("Details created");
-    }
-
     public override void OnNavigatedTo(NavigationParameters parameters)
     {
         Equipment = parameters.GetValue<Equipment>("Equipment");

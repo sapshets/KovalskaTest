@@ -39,7 +39,7 @@ public partial class TreeView : ContentView
                 {
                     foreach (var item in e.NewItems)
                     {
-                        _root.Children.Insert(e.NewStartingIndex, new TreeViewNodeView(item as IHasChildrenTreeViewNode, ItemTemplate));//, ArrowTheme));
+                        _root.Children.Insert(e.NewStartingIndex, new TreeViewNodeView(item as IHasChildrenTreeViewNode, ItemTemplate));
                     }
                 }
                 break;
@@ -77,18 +77,10 @@ public partial class TreeView : ContentView
         {
             if (item is IHasChildrenTreeViewNode node)
             {
-                _root.Children.Add(new TreeViewNodeView(node, ItemTemplate));//, ArrowTheme));
+                _root.Children.Add(new TreeViewNodeView(node, ItemTemplate));
             }
         }
     }
-
-    // protected virtual void OnArrowThemeChanged()
-    // {
-    //     foreach (TreeViewNodeView treeViewNodeView in _root.Children.Where(x => x is TreeViewNodeView))
-    //     {
-    //         treeViewNodeView.UpdateArrowTheme(ArrowTheme);
-    //     }
-    // }
 }
 
 public class TreeViewNodeView : ContentView
@@ -97,13 +89,11 @@ public class TreeViewNodeView : ContentView
     protected StackLayout slChildrens;
     protected IHasChildrenTreeViewNode Node { get; }
     protected DataTemplate ItemTemplate { get; }
-    // protected NodeArrowTheme ArrowTheme { get; }
-    public TreeViewNodeView(IHasChildrenTreeViewNode node, DataTemplate itemTemplate)//, NodeArrowTheme theme)
+    public TreeViewNodeView(IHasChildrenTreeViewNode node, DataTemplate itemTemplate)
     {
         var sl = new StackLayout { Spacing = 0 };
         BindingContext = Node = node;
         ItemTemplate = itemTemplate;
-        // ArrowTheme = theme;
         Content = sl;
 
         slChildrens = new StackLayout { IsVisible = node.IsExtended, Margin = new Thickness(10, 0, 0, 0), Spacing = 0 };
@@ -111,14 +101,9 @@ public class TreeViewNodeView : ContentView
         extendButton = new Label()
         {
             Text = "+",
-            //Source = GetArrowSource(theme),
             VerticalOptions = LayoutOptions.Center,
             BackgroundColor = Colors.Transparent,
-            Opacity = node.IsLeaf ? 0 : 1, // Using opacity instead isvisible to keep alignment
-            //Rotation = node.IsExtended ? 0 : -90,
-            // HeightRequest = 30,
-            // WidthRequest = 30,
-            // CornerRadius = 15
+            Opacity = node.IsLeaf ? 0 : 1
         };
 
         extendButton.Triggers.Add(new DataTrigger(typeof(Label))
@@ -211,7 +196,7 @@ public class TreeViewNodeView : ContentView
 
         foreach (var child in node.Children)
         {
-            slChildrens.Children.Add(new TreeViewNodeView(child, ItemTemplate));//, theme));
+            slChildrens.Children.Add(new TreeViewNodeView(child, ItemTemplate));
         }
 
         sl.Children.Add(slChildrens);
@@ -228,7 +213,7 @@ public class TreeViewNodeView : ContentView
         {
             foreach (var item in e.NewItems)
             {
-                slChildrens.Children.Insert(e.NewStartingIndex, new TreeViewNodeView(item as IHasChildrenTreeViewNode, ItemTemplate));//, ArrowTheme));
+                slChildrens.Children.Insert(e.NewStartingIndex, new TreeViewNodeView(item as IHasChildrenTreeViewNode, ItemTemplate));
             }
         }
 
@@ -240,44 +225,4 @@ public class TreeViewNodeView : ContentView
             }
         }
     }
-
-    // public void UpdateArrowTheme(NodeArrowTheme theme)
-    // {
-    //     extendButton.Source = GetArrowSource(theme);
-    //
-    //     if (slChildrens.Any())
-    //     {
-    //         foreach (var child in slChildrens.Children)
-    //         {
-    //             if (child is TreeViewNodeView treeViewNodeView)
-    //             {
-    //                 treeViewNodeView.UpdateArrowTheme(theme);
-    //             }
-    //         }
-    //     }
-    // }
-    //
-    // protected virtual ImageSource GetArrowSource(NodeArrowTheme theme)
-    // {
-    //     if (theme == NodeArrowTheme.Default)
-    //     {
-    //         return GetImageSource(Application.Current.RequestedTheme == AppTheme.Dark ? "down_light.png" : "down_dark.png");
-    //     }
-    //     else
-    //     {
-    //         return theme == NodeArrowTheme.Light ? GetImageSource("down_light.png") : GetImageSource("down_dark.png");
-    //     }
-    // }
-    //
-    // protected ImageSource GetImageSource(string fileName)
-    // {
-    //     return
-    //         ImageSource.FromResource("TreeView.Maui.Resources." + fileName, GetType().Assembly);
-    // }
 }
-// public enum NodeArrowTheme
-// {
-//     Default,
-//     Light,
-//     Dark
-// }
